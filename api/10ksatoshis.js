@@ -19,10 +19,18 @@ module.exports = async (req, res) => {
       date.setHours(date.getHours() - 4);
       
       // Format the new date and time
-      const formattedDate = date.toISOString().replace('T', ' ').replace(/\..*Z/, ' GMT-4');
+      const year = date.getUTCFullYear();
+      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      const hours = String(date.getUTCHours()).padStart(2, '0');
+      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      
+      // Create a more readable date format
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const formattedDate = `${day}th of ${monthNames[parseInt(month) - 1]}, ${hours}:${minutes}, GMT-4`;
       
       // Replace the original timestamp with the new formatted one
-      const formattedData = data.replace(/@(.*)T(.*)\..*Z/, `@${formattedDate}`);
+      const formattedData = data.replace(/@(.*)T(.*)\..*Z/, `(${formattedDate})`);
       res.status(200).send(formattedData);
     } else {
       res.status(200).send(data);
