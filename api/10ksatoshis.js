@@ -20,14 +20,13 @@ module.exports = async (req, res) => {
       
       // Format the new date and time
       const year = date.getUTCFullYear();
-      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-      const day = String(date.getUTCDate()).padStart(2, '0');
+      const month = date.toLocaleString('default', { month: 'long' });
+      const day = date.getUTCDate();
       const hours = String(date.getUTCHours()).padStart(2, '0');
       const minutes = String(date.getUTCMinutes()).padStart(2, '0');
       
       // Create a more readable date format
-      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      const formattedDate = `${day}th of ${monthNames[parseInt(month) - 1]}, ${hours}:${minutes}, GMT-4`;
+      const formattedDate = `${month} ${day}, ${hours}:${minutes}, GMT-4`;
       
       // Replace the original timestamp with the new formatted one
       const formattedData = data.replace(/@(.*)T(.*)\..*Z/, `(${formattedDate})`);
