@@ -1,15 +1,15 @@
 export default async function handler(req, res) {
-  // Hardcoded channel slug for simplicity
   const channelSlug = 'anthonyvizoso';
 
   try {
     // Fetch channel data from the Kick API
-    const response = await fetch(`https://kick.com/api/v2/channels/${channelSlug}`, {
+    const response = await fetch(`https://kick.com/api/v1/channels/${channelSlug}`, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
+    // Check if the response is not OK
     if (!response.ok) {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
