@@ -1,5 +1,6 @@
 export default async function handler(req, res) {
-  const channelSlug = req.query.slug || 'anthonyvizoso';  // Replace with your default channel slug
+  // Hardcoded channel slug for simplicity
+  const channelSlug = 'anthonyvizoso';
 
   try {
     // Fetch channel data from the Kick API
