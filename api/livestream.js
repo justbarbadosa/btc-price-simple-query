@@ -3,7 +3,16 @@ export default async function handler(req, res) {
 
   try {
     // Fetch channel data from the Kick API
-    const response = await fetch(`https://kick.com/api/v2/channels/${channelSlug}`);
+    const response = await fetch(`https://kick.com/api/v2/channels/${channelSlug}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+
     const data = await response.json();
 
     // Extract relevant livestream information
@@ -21,6 +30,7 @@ export default async function handler(req, res) {
     // Send the response
     res.status(200).send(textResponse);
   } catch (error) {
-    res.status(500).send('Failed to fetch data from Kick.com');
+    console.error('Error fetching data:', error);
+    res.status(500).send(`Failed to fetch data from Kick.com: ${error.message}`);
   }
 }
