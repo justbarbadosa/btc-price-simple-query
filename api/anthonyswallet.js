@@ -57,11 +57,11 @@ module.exports = async (req, res) => {
       // Replace the original timestamp with the new formatted one
       const formattedBTCPriceData = btcPriceData.replace(/@(.*)T(.*)\..*Z/, `(${formattedDate})`);
       
-      // Combine BTC price and wallet balance information
-      const combinedData = `Anthony's wallet contains ${balanceBTC} BTC (approx. $${balanceUSD.toFixed(2)} USD)\nWallet ID: ${walletAddress} `;
-      
-      myCache.set('btcPrice', combinedData);
-      res.status(200).send(combinedData);
+// Combine BTC price and wallet balance information
+const combinedData = `Anthony's wallet contains ${balanceBTC} BTC (approx. $${balanceUSD.toFixed(2).toLocaleString()} USD)`;
+
+myCache.set('btcPrice', combinedData);
+res.status(200).send(combinedData);
     } else {
       res.status(200).send(btcPriceData);
     }
