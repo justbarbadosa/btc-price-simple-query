@@ -1,11 +1,12 @@
 export default async function handler(req, res) {
   const channelSlug = 'anthonyvizoso';
-
+  
   try {
-    // Fetch channel data from the Kick API
+    // Fetch channel data from the Kick API through a server-side request
     const response = await fetch(`https://kick.com/api/v2/channels/${channelSlug}`, {
       headers: {
         'Content-Type': 'application/json',
+        // Add any necessary authentication headers here
       },
     });
 
